@@ -1,0 +1,118 @@
+[
+    {
+        "id": "cbe8e701.aede6",
+        "type": "ibmiot in",
+        "z": "deb0d57.1c46528",
+        "authentication": "boundService",
+        "apiKey": "",
+        "inputType": "evt",
+        "logicalInterface": "",
+        "ruleId": "",
+        "deviceId": "",
+        "applicationId": "",
+        "deviceType": "+",
+        "eventType": "+",
+        "commandType": "",
+        "format": "json",
+        "name": "IBM IoT",
+        "service": "registered",
+        "allDevices": "",
+        "allApplications": "",
+        "allDeviceTypes": true,
+        "allLogicalInterfaces": "",
+        "allEvents": true,
+        "allCommands": "",
+        "allFormats": "",
+        "qos": 0,
+        "x": 130,
+        "y": 140,
+        "wires": [
+            [
+                "70fc4567.783564",
+                "1c131096.4dfe3f"
+            ]
+        ]
+    },
+    {
+        "id": "1c131096.4dfe3f",
+        "type": "debug",
+        "z": "deb0d57.1c46528",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 330,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "6b8f1b1c.538ebc",
+        "type": "delay",
+        "z": "deb0d57.1c46528",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "10",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 460,
+        "y": 80,
+        "wires": [
+            [
+                "dbb9df17.5d58e"
+            ]
+        ]
+    },
+    {
+        "id": "70fc4567.783564",
+        "type": "function",
+        "z": "deb0d57.1c46528",
+        "name": "cleanup",
+        "func": "msg.payload =\n{\n  TS : msg.payload.d.ts,\n  ID : msg.payload.d.id,\n  AX : msg.payload.d.ax,\n  AY : msg.payload.d.ay,\n  AZ : msg.payload.d.az,\n  OA : msg.payload.d.oa,\n  OB : msg.payload.d.ob,\n  OG : msg.payload.d.og\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 140,
+        "wires": [
+            [
+                "6b8f1b1c.538ebc",
+                "244e1d80.2e1082"
+            ]
+        ]
+    },
+    {
+        "id": "dbb9df17.5d58e",
+        "type": "cloudant out",
+        "z": "deb0d57.1c46528",
+        "name": "",
+        "cloudant": "",
+        "database": "zzshake",
+        "service": "zzshake-cloudantNoSQLDB",
+        "payonly": true,
+        "operation": "insert",
+        "x": 660,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "244e1d80.2e1082",
+        "type": "debug",
+        "z": "deb0d57.1c46528",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 520,
+        "y": 180,
+        "wires": []
+    }
+]
